@@ -1,0 +1,26 @@
+export const palettes = {
+  light: {
+    background: '#F5F3EC',
+    surface: '#FFFFFF',
+    ink: '#203B31',
+    muted: '#647269',
+    accent: '#D7EEB9',
+    card: '#203B31',
+    cardInk: '#F5F3EC',
+    cardMuted: '#C4D4C9',
+    border: '#DAE0D6',
+    error: '#A22D2D',
+  },
+  dark: {
+    background: '#101D18',
+    surface: '#1B2C24',
+    ink: '#F0F3E9',
+    muted: '#AFBFB3',
+    accent: '#D7EEB9',
+    card: '#263F32',
+    cardInk: '#F5F3EC',
+    cardMuted: '#C4D4C9',
+    border: '#385044',
+    error: '#FFB4AB',
+  },
+} as const;

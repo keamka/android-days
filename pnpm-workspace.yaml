@@ -1,0 +1,5 @@
+# Added by pnpm import for this exact version from the existing dependency graph.
+minimumReleaseAgeExclude:
+  - babel-plugin-react-native-web@0.21.3
+# Keep the flat node_modules layout used by Expo native tooling and Jest.
+nodeLinker: hoisted

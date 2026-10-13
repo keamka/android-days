@@ -1,0 +1,41 @@
+name: Check Android app
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      EXPO_NO_TELEMETRY: '1'
+      CI: '1'
+    steps:
+      - uses: actions/checkout@v4
+      # Reads the pinned version from package.json; install before Node's cache setup.
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run check
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: node scripts/test-daily-schedule.cjs
+      - run: pnpm test src/domain/__tests__/lifeDay.test.ts
+        env:
+          TZ: America/New_York
+      - run: pnpm test src/domain/__tests__/lifeDay.test.ts
+        env:
+          TZ: Pacific/Kiritimati
+      - run: pnpm test src/domain/__tests__/lifeDay.test.ts
+        env:
+          TZ: Pacific/Apia
+      - run: pnpm exec expo install --check --pnpm
+      - run: pnpm exec expo prebuild --platform android --no-install
+      - run: pnpm run export:android
